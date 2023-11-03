@@ -18,7 +18,7 @@ class ticTacToeGame
 {
 
     S string gameState;
-    int gameStateN[9];
+    S array<int, 9> gameStateN;
 
     void gameStateToNumbers()
     {
@@ -59,7 +59,25 @@ public:
         gameStateToNumbers();
     }
 
-    S vector<int> getEmptySpaces()
+    void play(int SpaceIndex, char player = '@')
+    {
+        if (player == '@')
+        {
+            player = emptySpaces().size() % 2 == 0 ? 'o' : 'x';
+        }
+        if (tolower(player) == 'x')
+        {
+            gameState[SpaceIndex] = 'x';
+            gameStateN[SpaceIndex] = 1;
+        }
+        else if (tolower(player) == 'o')
+        {
+            gameState[SpaceIndex] = 'o';
+            gameStateN[SpaceIndex] = 4;
+        }
+    }
+
+    S vector<int> emptySpaces()
     {
         S vector<int> emptySpaces;
         for (int i = 0; i < 9; i++)
@@ -83,7 +101,6 @@ public:
             for (int x = 0; x < 3; x++)
             {
                 int point = (P[(i * 2) + 1] * x) + (P[i * 2]);
-                
             }
             // here we will make an if statement
         }

@@ -5,6 +5,7 @@
 
 int main()
 {   
+    // testing for the tree DS
     TreeNode<int> g(11);
     g.addChild(102);                 // 0 
     g.children[0]->addChild(113);    // 0 -> 0
@@ -17,11 +18,6 @@ int main()
     // 0 1 2
     // 3 4 5
     // 6 7 8
-    
-    // 0 -> 1 3 4
-    // 2 -> 2 3 
-    // 3 -> 1 
-    // 4 -> 3 
 
     ticTacToeGame hh("xXx0OO--o");
 

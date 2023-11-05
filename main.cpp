@@ -19,8 +19,11 @@ int main()
     // 3 4 5
     // 6 7 8
 
-    ticTacToeGame hh("xXx0OO--o");
+    ticTacToeGame hh({'o','X','O'});
+    for (char x : hh.getGameState()) 
+    {
+        S cout << x << " " ;
+    }
 
-    
     return 0;
 }

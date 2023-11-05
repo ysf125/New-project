@@ -17,55 +17,50 @@ struct report
 class ticTacToeGame
 {
 
-    S string gameState;
+    S array<char, 9> gameState;
     S array<int, 9> gameStateN;
+    S vector<int> emptySpaces;
 
-    void gameStateToNumbers()
+public:
+    ticTacToeGame()
     {
         for (int i = 0; i < 9; i++)
         {
-            switch (gameState[i])
-            {
-            case 'x':
-                gameStateN[i] = 1;
-                break;
-            case 'o':
-                gameStateN[i] = 4;
-                break;
-            default:
-                gameStateN[i] = 0;
-                break;
-            }
+            play(i, '-');
+        }
+    }
+    ticTacToeGame(S array<char, 9> gameState)
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            play(i, gameState[i]);
         }
     }
 
-public:
-    ticTacToeGame(){};
-    ticTacToeGame(S string gameState)
-    {
-        setGameState(gameState);
-    }
-
-    S string getGameState()
+    S array<char, 9> getGameState()
     {
         return this->gameState;
     }
 
-    void setGameState(S string gameState)
+    S vector<int> getEmptySpaces()
     {
-        this->gameState = gameState;
-        S string &x = this->gameState;
-        S transform(x.begin(), x.end(), x.begin(), ::tolower);
-        gameStateToNumbers();
+        return this->emptySpaces;
     }
 
-    void play(int SpaceIndex, char player = '@')
+    void play(int SpaceIndex, char player = '`')
     {
-        if (player == '@')
+        if (player == '`')
         {
-            player = emptySpaces().size() % 2 == 0 ? 'o' : 'x';
+            if (emptySpaces.size() % 2 == 0)
+            {
+                play(SpaceIndex, 'o');
+            }
+            else
+            {
+                play(SpaceIndex, 'x');
+            }
         }
-        if (tolower(player) == 'x')
+        else if (tolower(player) == 'x')
         {
             gameState[SpaceIndex] = 'x';
             gameStateN[SpaceIndex] = 1;
@@ -75,19 +70,12 @@ public:
             gameState[SpaceIndex] = 'o';
             gameStateN[SpaceIndex] = 4;
         }
-    }
-
-    S vector<int> emptySpaces()
-    {
-        S vector<int> emptySpaces;
-        for (int i = 0; i < 9; i++)
+        else
         {
-            if (gameStateN[i] == 0)
-            {
-                emptySpaces.push_back(i);
-            }
+            gameState[SpaceIndex] = player;
+            gameStateN[SpaceIndex] = 0;
+            emptySpaces.push_back(SpaceIndex);
         }
-        return emptySpaces;
     }
 
     report gameReport()

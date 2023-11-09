@@ -20,8 +20,18 @@ int main() {
   // 6 7 8 / xxo
 
   ticTacToeGame hh({'o', '-', 'O','x', 'x', '-','x', 'x', '-'});
+  report x = hh.gameReport() ;
+  S cout << x.win << "\n";
   
+  S cout << "o :" << "\n" ;
+  for (int z : x.ocanWin) {
+    S cout << z << " " ;
+  }
   
+  S cout << "\n" << "x :" << "\n"; 
+  for (int z : x.xcanWin) {
+    S cout << z << " " ;
+  }
 
   return 0;
 }

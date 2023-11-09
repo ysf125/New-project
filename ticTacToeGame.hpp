@@ -3,10 +3,7 @@
 #include "treeDS.hpp"
 #include <algorithm>
 #include <array>
-#include <cmath>
-#include <string>
 #include <vector>
-
 #define S std::
 
 struct report {
@@ -18,7 +15,6 @@ struct report {
 class ticTacToeGame {
 
   S array<char, 9> gameState;
-  S array<int, 9> gameStateN;
   S vector<int> emptySpaces;
 
 public:
@@ -38,22 +34,24 @@ public:
   S vector<int> getEmptySpaces() { return this->emptySpaces; }
 
   void play(int SpaceIndex, char player = '`') {
-    if (player == '`') {
+    switch (tolower(player)) {
+    case '`':
       if (emptySpaces.size() % 2 == 0) {
         play(SpaceIndex, 'o');
       } else {
         play(SpaceIndex, 'x');
       }
-    } else if (tolower(player) == 'x') {
+      break;
+    case 'x':
       gameState[SpaceIndex] = 'x';
-      gameStateN[SpaceIndex] = 1;
-    } else if (tolower(player) == 'o') {
+      break;
+    case 'o':
       gameState[SpaceIndex] = 'o';
-      gameStateN[SpaceIndex] = 4;
-    } else {
+      break;
+    default:
       gameState[SpaceIndex] = player;
-      gameStateN[SpaceIndex] = 0;
       emptySpaces.push_back(SpaceIndex);
+      break;
     }
   }
 
@@ -62,16 +60,21 @@ public:
     S array<int, 16> P = {0, 1, 3, 1, 6, 1};
 
     for (int i = 0; i < 3; i++) {
-      int temp = 0, empty;
-      for (int x = 0; x < 3; x++) {
-        int point = (P[(i * 2) + 1] * x) + (P[i * 2]);
-        if (gameStateN[point] == 0) {
+      int empty, x = 0, o = 0;
+      for (int y = 0; y < 3; y++) {
+        int point = (P[(i * 2) + 1] * y) + (P[i * 2]);
+        switch (gameState[point]) {
+        case 'x':
+          x += 1;
+          break;
+        case 'o':
+          o += 1;
+          break;
+        default:
           empty = point;
-        } else {
-          temp += gameStateN[point];
+          break;
         }
       }
-      int x = temp % 4, o = S floor(temp / 4);
       if (x == 3 || o == 3) {
         returnVal.win = x == 3 ? 'x' : 'o';
       } else if (x == 2 && o == 0) {

@@ -1,1 +1,1 @@
-# ticTacToe simple AI made using c++
+# Just a simple ticTacToe AI made using c++

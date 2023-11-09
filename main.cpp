@@ -1,7 +1,6 @@
 #include "ticTacToeGame.hpp"
 #include "treeDS.hpp"
 #include <iostream>
-
 #define S std::
 
 int main() {
@@ -15,22 +14,24 @@ int main() {
   g.children[1]->addChild(216); // 1 -> 0
   g.children[1]->addChild(227); // 1 -> 1
 
-  // 0 1 2 / ooo
-  // 3 4 5 / xxo
-  // 6 7 8 / xxo
-
-  ticTacToeGame hh({'o', '-', 'O','x', 'x', '-','x', 'x', '-'});
-  report x = hh.gameReport() ;
+  // testing for ticTacToeGame class
+  // 0 1 2 / o x
+  // 3 4 5 /  
+  // 6 7 8 / x o 
+  
+  ticTacToeGame hh({'o', '-', 'x', '-', '-', '-', 'x', '-', 'o'});
+  report x = hh.gameReport();
   S cout << x.win << "\n";
-  
-  S cout << "o :" << "\n" ;
+
+  S cout << "o :" << "\n";
   for (int z : x.ocanWin) {
-    S cout << z << " " ;
+    S cout << z << " ";
   }
-  
-  S cout << "\n" << "x :" << "\n"; 
+
+  S cout << "\n" << "x :" << "\n";
+
   for (int z : x.xcanWin) {
-    S cout << z << " " ;
+    S cout << z << " ";
   }
 
   return 0;

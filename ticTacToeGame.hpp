@@ -3,6 +3,7 @@
 #include "treeDS.hpp"
 #include <algorithm>
 #include <array>
+#include <stack>
 #include <vector>
 #define S std::
 
@@ -57,12 +58,12 @@ public:
 
   report gameReport() {
     report returnVal;
-    S array<int, 16> P = {0, 1, 3, 1, 6, 1, 0, 3, 1, 3, 2, 3, 0, 4, 2, 2};
+    S array<int, 16> patterns = {0, 1, 3, 1, 6, 1, 0, 3, 1, 3, 2, 3, 0, 4, 2, 2};
 
     for (int i = 0; i < 8; i++) {
       int empty, x = 0, o = 0;
       for (int y = 0; y < 3; y++) {
-        int point = (P[(i * 2) + 1] * y) + (P[i * 2]);
+        int point = (patterns[(i * 2) + 1] * y) + (patterns[i * 2]);
         switch (gameState[point]) {
         case 'x':
           x += 1;

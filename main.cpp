@@ -15,9 +15,9 @@ int main() {
   g.children[1]->addChild(227); // 1 -> 1
 
   // testing for ticTacToeGame class
-  // 0 1 2 / o x
-  // 3 4 5 /  
-  // 6 7 8 / x o 
+  // 0 1 2 / o   x
+  // 3 4 5 /   
+  // 6 7 8 / x   o 
   
   ticTacToeGame hh({'o', '-', 'x', '-', '-', '-', 'x', '-', 'o'});
   report x = hh.gameReport();

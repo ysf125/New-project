@@ -18,6 +18,19 @@ class ticTacToeGame {
   S array<char, 9> gameState;
   S vector<int> emptySpaces;
 
+  int ratingGameState(int depth = 7) {
+    int rating = 0 ;
+    if (emptySpaces.size() > 9 - depth) {
+      for (int i = 0 ; i < emptySpaces.size() ; i++) {
+        S shared_ptr temp = S make_shared<ticTacToeGame>(gameState);
+        temp->play(emptySpaces[i]);
+        
+      }
+    } else {
+      
+    }
+  }
+
 public:
   ticTacToeGame() {
     for (int i = 0; i < 9; i++) {
@@ -58,7 +71,8 @@ public:
 
   report gameReport() {
     report returnVal;
-    S array<int, 16> patterns = {0, 1, 3, 1, 6, 1, 0, 3, 1, 3, 2, 3, 0, 4, 2, 2};
+    S array<int, 16> patterns = {0, 1, 3, 1, 6, 1, 0, 3,
+                                 1, 3, 2, 3, 0, 4, 2, 2};
 
     for (int i = 0; i < 8; i++) {
       int empty, x = 0, o = 0;

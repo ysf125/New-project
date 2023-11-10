@@ -1,5 +1,6 @@
 #include "ticTacToeGame.hpp"
 #include "treeDS.hpp"
+#include <chrono>
 #include <iostream>
 #define S std::
 
@@ -18,7 +19,7 @@ int main() {
   // 0 1 2 / o   x
   // 3 4 5 /   
   // 6 7 8 / x   o 
-  
+
   ticTacToeGame hh({'o', '-', 'x', '-', '-', '-', 'x', '-', 'o'});
   report x = hh.gameReport();
   S cout << x.win << "\n";
@@ -33,6 +34,11 @@ int main() {
   for (int z : x.xcanWin) {
     S cout << z << " ";
   }
+  // measuring execution time   
+  // auto start = std::chrono::system_clock::now();
+  // auto end = S chrono::system_clock::now();
+  // S cout << "\n" << S chrono::duration_cast<S chrono::microseconds>(end - start).count() ;
+  // S cout << "\n" << S chrono::duration_cast<S chrono::milliseconds>(end - start).count() ;
 
   return 0;
 }

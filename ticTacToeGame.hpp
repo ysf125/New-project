@@ -18,17 +18,11 @@ class ticTacToeGame {
   S array<char, 9> gameState;
   S vector<int> emptySpaces;
 
-  int ratingGameState(int depth = 7) {
-    int rating = 0 ;
-    if (emptySpaces.size() > 9 - depth) {
-      for (int i = 0 ; i < emptySpaces.size() ; i++) {
-        S shared_ptr temp = S make_shared<ticTacToeGame>(gameState);
-        temp->play(emptySpaces[i]);
-        
-      }
-    } else {
-      
-    }
+  int ratingGameState(char player, int depth) {
+    int rating = 0;
+    report x = this->gameReport();
+    
+    return rating;
   }
 
 public:
@@ -99,6 +93,20 @@ public:
       }
     }
     return returnVal;
+  }
+
+  int AI(char player, int depth = 7) {
+    int AImove = 0, bestMoveRating = 0;
+    if (9 - emptySpaces.size() <= 1) {
+      if (!gameState[0] == 'x' || !gameState[0] == 'o') {
+        AImove = 0;
+      } else {
+        AImove = 4;
+      }
+    } else {
+      
+    }
+    return AImove;
   }
 };
 

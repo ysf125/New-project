@@ -20,20 +20,21 @@ int main() {
   // 3 4 5 /   
   // 6 7 8 / x   o 
 
-  ticTacToeGame hh({'o', '-', 'x', '-', '-', '-', 'x', '-', 'o'});
-  report x = hh.gameReport();
-  S cout << x.win << "\n";
+  ticTacToeGame hh({'x', '-', '-', 'o', '-', '-', 'x', 'x', 'x'});
+  
+  // report x = hh.gameReport();
+  // S cout << x.win << "\n";
 
-  S cout << "o :" << "\n";
-  for (int z : x.ocanWin) {
-    S cout << z << " ";
-  }
+  // S cout << "o :" << "\n";
+  // for (int z : x.ocanWin) {
+  //   S cout << z << " ";
+  // }
 
-  S cout << "\n" << "x :" << "\n";
+  // S cout << "\n" << "x :" << "\n";
 
-  for (int z : x.xcanWin) {
-    S cout << z << " ";
-  }
+  // for (int z : x.xcanWin) {
+  //   S cout << z << " ";
+  // }
   // measuring execution time   
   // auto start = std::chrono::system_clock::now();
   // auto end = S chrono::system_clock::now();

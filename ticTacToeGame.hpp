@@ -1,7 +1,6 @@
 #ifndef ticTacToeGame_hpp
 #define ticTacToeGame_hpp
 #include "treeDS.hpp"
-#include <algorithm>
 #include <array>
 #include <stack>
 #include <vector>
@@ -20,8 +19,8 @@ class ticTacToeGame {
 
   int ratingGameState(char player, int depth) {
     int rating = 0;
-    report x = this->gameReport();
-    
+    report x = this->gameReport(this->gameState);
+
     return rating;
   }
 
@@ -63,7 +62,7 @@ public:
     }
   }
 
-  report gameReport() {
+  report gameReport(S array<char, 9> gameState) {
     report returnVal;
     S array<int, 16> patterns = {0, 1, 3, 1, 6, 1, 0, 3,
                                  1, 3, 2, 3, 0, 4, 2, 2};
@@ -72,7 +71,7 @@ public:
       int empty, x = 0, o = 0;
       for (int y = 0; y < 3; y++) {
         int point = (patterns[(i * 2) + 1] * y) + (patterns[i * 2]);
-        switch (gameState[point]) {
+        switch (tolower(gameState[point])) {
         case 'x':
           x += 1;
           break;
@@ -104,7 +103,6 @@ public:
         AImove = 4;
       }
     } else {
-      
     }
     return AImove;
   }

@@ -20,11 +20,7 @@ int main() {
   // 0 1 2 / x
   // 3 4 5 / o
   // 6 7 8 / x x x
-
-  S cout << averageExecutionTime(
-    []() {
-      ticTacToeGame hh({'x', '-', '-', 'o', '-', '-', 'x', 'x', 'x'});
-    }, 10) << "\n" ;
+  
 
   return 0;
 }

@@ -19,8 +19,8 @@ class ticTacToeGame {
 
   int ratingGameState(char player, int depth) {
     int rating = 0;
-    report x = this->gameReport(this->gameState);
-
+    report x = this->gameReport();
+    // working here
     return rating;
   }
 
@@ -62,7 +62,7 @@ public:
     }
   }
 
-  report gameReport(S array<char, 9> gameState) {
+  report gameReport() {
     report returnVal;
     S array<int, 16> patterns = {0, 1, 3, 1, 6, 1, 0, 3,
                                  1, 3, 2, 3, 0, 4, 2, 2};
@@ -71,7 +71,7 @@ public:
       int empty, x = 0, o = 0;
       for (int y = 0; y < 3; y++) {
         int point = (patterns[(i * 2) + 1] * y) + (patterns[i * 2]);
-        switch (tolower(gameState[point])) {
+        switch (gameState[point]) {
         case 'x':
           x += 1;
           break;

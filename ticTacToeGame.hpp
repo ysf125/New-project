@@ -1,8 +1,7 @@
 #ifndef ticTacToeGame_hpp
 #define ticTacToeGame_hpp
-#include "treeDS.hpp"
+#include <unordered_map>
 #include <array>
-#include <stack>
 #include <vector>
 #define S std::
 
@@ -14,6 +13,7 @@ struct report {
 
 class ticTacToeGame {
 
+  bool activatedAI = false;
   S array<char, 9> gameState;
   S vector<int> emptySpaces;
 
@@ -40,9 +40,9 @@ public:
 
   S vector<int> getEmptySpaces() { return this->emptySpaces; }
 
-  void play(int SpaceIndex, char player = '`') {
+  void play(int SpaceIndex, char player = 'z') {
     switch (tolower(player)) {
-    case '`':
+    case 'z':
       if (emptySpaces.size() % 2 == 0) {
         play(SpaceIndex, 'o');
       } else {
@@ -96,6 +96,7 @@ public:
 
   int AI(char player, int depth = 7) {
     int AImove = 0, bestMoveRating = 0;
+    activatedAI = true;
     if (9 - emptySpaces.size() <= 1) {
       if (!gameState[0] == 'x' || !gameState[0] == 'o') {
         AImove = 0;

@@ -1,26 +1,35 @@
 #ifndef ticTacToeGame_hpp
 #define ticTacToeGame_hpp
-#include <unordered_map>
 #include <array>
+#include <ctype.h>
+#include <map>
+#include <string>
 #include <vector>
+
 #define S std::
 
 struct report {
   char win = ' ';
-  S vector<int> xcanWin;
-  S vector<int> ocanWin;
+  S vector<int> xCanWin;
+  S vector<int> oCanWin;
 };
 
 class ticTacToeGame {
 
-  bool activatedAI = false;
+  S map<S string, int> ratings;
   S array<char, 9> gameState;
   S vector<int> emptySpaces;
 
   int ratingGameState(char player, int depth) {
     int rating = 0;
-    report x = this->gameReport();
-    // working here
+    S string key = arrayToString<9>(gameState);
+    // get rating
+    if (ratings.find(key) != ratings.end()) {
+      rating = ratings[key];
+    } else {
+      report x = this->gameReport();
+    }
+
     return rating;
   }
 
@@ -40,13 +49,13 @@ public:
 
   S vector<int> getEmptySpaces() { return this->emptySpaces; }
 
-  void play(int SpaceIndex, char player = 'z') {
+  void play(int SpaceIndex, char player = '\0') {
     switch (tolower(player)) {
-    case 'z':
+    case '\0':
       if (emptySpaces.size() % 2 == 0) {
-        play(SpaceIndex, 'o');
+        gameState[SpaceIndex] = 'o';
       } else {
-        play(SpaceIndex, 'x');
+        gameState[SpaceIndex] = 'x';
       }
       break;
     case 'x':
@@ -56,7 +65,7 @@ public:
       gameState[SpaceIndex] = 'o';
       break;
     default:
-      gameState[SpaceIndex] = player;
+      gameState[SpaceIndex] = ' ';
       emptySpaces.push_back(SpaceIndex);
       break;
     }
@@ -86,9 +95,9 @@ public:
       if (x == 3 || o == 3) {
         returnVal.win = x == 3 ? 'x' : 'o';
       } else if (x == 2 && o == 0) {
-        returnVal.xcanWin.push_back(empty);
+        returnVal.xCanWin.push_back(empty);
       } else if (o == 2 && x == 0) {
-        returnVal.ocanWin.push_back(empty);
+        returnVal.oCanWin.push_back(empty);
       }
     }
     return returnVal;
@@ -96,7 +105,6 @@ public:
 
   int AI(char player, int depth = 7) {
     int AImove = 0, bestMoveRating = 0;
-    activatedAI = true;
     if (9 - emptySpaces.size() <= 1) {
       if (!gameState[0] == 'x' || !gameState[0] == 'o') {
         AImove = 0;

@@ -20,17 +20,32 @@ class ticTacToeGame {
   S array<char, 9> gameState;
   S vector<int> emptySpaces;
 
-  int ratingGameState(char player, int depth) {
+  int ratingGameState(S array<char, 9> gameState, char AIPlayerChar, int depth) {
+    // 0 - setting up befor getting starting
     int rating = 0;
     S string key = arrayToString<9>(gameState);
-    // get rating
+    // 1 - getting rating
     if (ratings.find(key) != ratings.end()) {
       rating = ratings[key];
     } else {
-      report x = this->gameReport();
+      ticTacToeGame tempGameState(gameState);
+      report tempGameReport = tempGameState.gameReport();
+      int winR = tempGameReport.win = AIPlayerChar ? 5 : -5;
+      int AICanWinR;
+      if (AIPlayerChar == 'x') {
+        AICanWinR = tempGameReport.xCanWin.size();
+      } else {
+        AICanWinR = tempGameReport.oCanWin.size();
+      }
+      rating = ((10 - (9 - tempGameState.emptySpaces.size())) * 10 / 100) * (winR + AICanWinR);
+      ratings[key] = rating;
     }
-
-    return rating;
+    // 2 - Recursion time baby!!
+    if (false) {
+      
+    } else {
+      return rating;
+    }
   }
 
 public:

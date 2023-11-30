@@ -16,6 +16,7 @@ struct report {
 
 class ticTacToeGame {
 
+  bool AIActivated = false;
   S map<S string, int> ratings;
   S array<char, 9> gameState;
   S vector<int> emptySpaces;
@@ -24,25 +25,26 @@ class ticTacToeGame {
     // 0 - setting up befor getting starting
     int rating = 0;
     S string key = arrayToString<9>(gameState);
+    ticTacToeGame newGame(gameState);
     // 1 - getting rating
     if (ratings.find(key) != ratings.end()) {
       rating = ratings[key];
     } else {
-      ticTacToeGame tempGameState(gameState);
-      report tempGameReport = tempGameState.gameReport();
-      int winR = tempGameReport.win = AIPlayerChar ? 5 : -5;
-      int AICanWinR;
-      if (AIPlayerChar == 'x') {
-        AICanWinR = tempGameReport.xCanWin.size();
-      } else {
-        AICanWinR = tempGameReport.oCanWin.size();
-      }
-      rating = ((10 - (9 - tempGameState.emptySpaces.size())) * 10 / 100) * (winR + AICanWinR);
+      report gameReport = newGame.gameReport();
+      int winR = gameReport.win = AIPlayerChar ? 5 : -5;
+      int AICanWinR = AIPlayerChar == 'x' ? gameReport.xCanWin.size() : gameReport.oCanWin.size();
+      rating = ((10 - (9 - newGame.emptySpaces.size())) * 10 / 100) *
+               (winR + AICanWinR);
       ratings[key] = rating;
     }
     // 2 - Recursion time baby!!
-    if (false) {
-      
+    if (9 - newGame.emptySpaces.size() != depth) {
+      for (int i = 0; i < newGame.emptySpaces.size(); i++) {
+        S array<char, 9> gameState = newGame.getGameState();
+        gameState[newGame.emptySpaces[i]] = newGame.emptySpaces.size() % 2 == 0 ? 'o' : 'x';
+        rating += ratingGameState(newGame.getGameState(), AIPlayerChar, depth);
+      }
+      return rating;
     } else {
       return rating;
     }
@@ -67,11 +69,7 @@ public:
   void play(int SpaceIndex, char player = '\0') {
     switch (tolower(player)) {
     case '\0':
-      if (emptySpaces.size() % 2 == 0) {
-        gameState[SpaceIndex] = 'o';
-      } else {
-        gameState[SpaceIndex] = 'x';
-      }
+      gameState[SpaceIndex] = emptySpaces.size() % 2 == 0 ? 'o' : 'x';
       break;
     case 'x':
       gameState[SpaceIndex] = 'x';

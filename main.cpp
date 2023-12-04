@@ -10,5 +10,9 @@ int main() {
   // 3 4 5 /
   // 6 7 8 /
 
+  ticTacToeGame g({'x','x'});
+  g.ratingGameState(g.getGameState(),'x',7);
+
+
   return 0;
 }

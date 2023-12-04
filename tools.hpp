@@ -14,8 +14,7 @@ float averageExecutionTime(S function<void()> code, int precision) {
     auto start = std::chrono::system_clock::now();
     code();
     auto end = S chrono::system_clock::now();
-    time +=
-        S chrono::duration_cast<S chrono::microseconds>(end - start).count();
+    time += S chrono::duration_cast<S chrono::microseconds>(end - start).count();
   }
   return time / precision;
 }

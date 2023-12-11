@@ -7,7 +7,7 @@
 #include <iostream>
 #define S std::
 
-int Vcpp() {
+int cppVersion() {
     long version = __cplusplus;
     switch (version) {
     case 202101L: version = 23; break;

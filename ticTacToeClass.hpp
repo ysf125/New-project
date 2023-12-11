@@ -22,27 +22,34 @@ private:
     S array<int, 9> gameStateN;
     S vector<int> emptySpaces;
 
-    float ratingGameState(S array<int, 9> gameStateN, char AIPlayerChar, S map<int, int>& ratings) {
-        float rating = 0, key = makeKey(gameStateN);
+    float ratingGameState(S array<int, 9> gameStateN, char AIC, S map<int, int>& ratings) {
+        float rating = 0, ID = createID(gameStateN);
+        char playerC = AIC == 'x' ? 'o' : 'x'; 
         ticTacToeGame game;
         game.gameStateN = gameStateN;
         // getting the rating
-        if (ratings.contains(key)) {
-            
+        if (ratings.contains(ID)) {
+            rating = ratings[ID];
         }
         else {
-
+            report reportForGS = game.gameReport();
+            int winR = 0, AICanWinR, depth = 9 - game.getEmptySpaces().size();
+            if (AIC == reportForGS.win) winR = 5;
+            else if (playerC == reportForGS.win) winR = -5;
+            if (AIC == 'x') AICanWinR = ;
+            else if (AIC == 'o') AICanWinR = ;
         }
         // recursion time beby!
-        if (9 - game.getEmptySpaces().size() == 0) {
-            return rating;
-        }
-        else {
-
-        }
+        // if (game.getEmptySpaces().size() == 0) {
+        //     return rating;
+        // }
+        // else {
+            
+        // }
+        return rating;
     }
 
-    int makeKey(S array<int, 9> gameStateN) {
+    int createID(S array<int, 9> gameStateN) {
         int key = 0;
         S array<int, 9> map = { 1, 2, 1, 2, 3, 2, 1, 2, 1 };
         for (int i = 0; i < 9; i++) {
@@ -63,7 +70,7 @@ public:
         }
     }
 
-    S array<char, 9> getGameState() {
+    S array<char, 9> getGameStateC() {
         S array<char, 9> gameStateC;
         for (int i = 0; i < 9; i++) {
             gameStateC[i] = (char)gameStateN[i];
@@ -95,8 +102,8 @@ public:
             for (int y = 0; y < 3; y++) {
                 int point = (patterns[(i * 2) + 1] * y) + (patterns[i * 2]);
                 switch (gameStateN[point]) {
-                case 1: x += 1; break;
-                case 4: o += 1; break;
+                case 120: x += 1; break;
+                case 111: o += 1; break;
                 default: empty = point; break;
                 }
             }

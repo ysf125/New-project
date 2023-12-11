@@ -12,7 +12,7 @@ int main() {
 
     ticTacToeGame g({ 'x','x' });
 
-    for (char z : g.getGameState()) {
+    for (char z : g.getGameStateC()) {
         S cout << z << " ";
     }
 

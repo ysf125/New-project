@@ -12,10 +12,5 @@ int main() {
 
     ticTacToeGame g({ 'x','x' });
 
-    for (char z : g.getGameStateC()) {
-        S cout << z << " ";
-    }
-
-
     return 0;
 }

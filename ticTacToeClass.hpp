@@ -18,35 +18,44 @@ class ticTacToeGame {
 
 private:
     bool AIActivated = false;
-    S map<int, int> ratings;
+    S map<int, float> ratings;
     S array<int, 9> gameStateN;
     S vector<int> emptySpaces;
 
-    float ratingGameState(S array<int, 9> gameStateN, char AIC, S map<int, int>& ratings) {
-        float rating = 0, ID = createID(gameStateN);
-        char playerC = AIC == 'x' ? 'o' : 'x'; 
-        ticTacToeGame game;
-        game.gameStateN = gameStateN;
+    template <typename T>
+
+    ticTacToeGame(S array<T, 9> gameStateN) {
+        for (int i = 0; i < 9; i++) {
+            play(i, (char)gameStateN[i]);
+        }
+    }
+
+    float ratingGameState(S array<int, 9> gameStateN, char AIC, S map<int, float>& ratings) {
+        float rating = 0;
+        int ID = createID(gameStateN);
+        char playerC = AIC == 'x' ? 'o' : 'x';
+        ticTacToeGame game(gameStateN);
         // getting the rating
         if (ratings.contains(ID)) {
             rating = ratings[ID];
         }
         else {
             report reportForGS = game.gameReport();
-            int winR = 0, AICanWinR, depth = 9 - game.getEmptySpaces().size();
+            int winR = 0, AICanWinR;
+            float depth = 9 - game.getEmptySpaces().size();
             if (AIC == reportForGS.win) winR = 5;
             else if (playerC == reportForGS.win) winR = -5;
-            if (AIC == 'x') AICanWinR = ;
-            else if (AIC == 'o') AICanWinR = ;
+            if (AIC == 'x') AICanWinR = reportForGS.xCanWin.size() + (-reportForGS.oCanWin.size());
+            else if (AIC == 'o') AICanWinR = reportForGS.oCanWin.size() + (-reportForGS.xCanWin.size());
+            rating = (10 - depth) * 10 / 100 * (winR + AICanWinR);
         }
-        // recursion time beby!
-        // if (game.getEmptySpaces().size() == 0) {
-        //     return rating;
-        // }
-        // else {
-            
-        // }
-        return rating;
+        //recursion time beby!
+        if (game.getEmptySpaces().size() == 0) {
+            return rating;
+        }
+        else {
+
+        }
     }
 
     int createID(S array<int, 9> gameStateN) {
@@ -64,6 +73,7 @@ public:
             play(i, ' ');
         }
     }
+
     ticTacToeGame(S array<char, 9> gameStateC) {
         for (int i = 0; i < 9; i++) {
             play(i, gameStateC[i]);
@@ -114,7 +124,7 @@ public:
         return returnVal;
     }
 
-    int AI(char player, int depth = 7) {
+    int AI(char AIC) {
         int AImove = 0, bestMoveRating = 0;
         if (9 - emptySpaces.size() <= 1) {
             if (!(gameStateN[0] == 1) || !(gameStateN[0] == 4)) AImove = 0;

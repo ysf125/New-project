@@ -10,7 +10,7 @@ int main() {
     // 3 4 5 / 2 3 2
     // 6 7 8 / 1 2 1
 
-    ticTacToeGame g({'x','x'});
+    ticTacToeGame g({ 'x','x' });
 
     for (char z : g.getGameState()) {
         S cout << z << " ";

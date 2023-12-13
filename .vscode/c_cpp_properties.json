@@ -5,15 +5,13 @@
       "includePath": [
         "${workspaceFolder}/**"
       ],
-      "defines": [
-        "_DEBUG",
-        "UNICODE",
-        "_UNICODE"
-      ],
+      "compilerPath": "G:/yousef/code/files for programs/C++/mingw64/bin/gcc.exe",
       "cStandard": "${default}",
-      "intelliSenseMode": "windows-gcc-x64",
       "cppStandard": "${default}",
-      "compilerPath": "G:/yousef/code/files for programs/C++/mingw64/bin/gcc.exe"
+      "intelliSenseMode": "windows-gcc-x64",
+      "compilerArgs": [
+        ""
+      ]
     }
   ],
   "version": 4

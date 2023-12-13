@@ -26,17 +26,17 @@ private:
 
     ticTacToeGame(S array<T, 9> gameStateN) { for (int i = 0; i < 9; i++) play(i, (char)gameStateN[i]); }
 
-    float ratingGameState(S array<int, 9> gameStateN, char AIC, S map<int, float>& ratings) {
+    float ratingGameState(ticTacToeGame game, char AIC, S map<int, float>& ratings) {
         float rating = 0;
-        int ID = createID(gameStateN);
-        ticTacToeGame game(gameStateN);
+        int ID = createID(game.gameStateN);
         // getting the rating
         if (ratings.contains(ID)) rating = ratings[ID];
         else {
             report reportForGS = game.gameReport();
             int winR = 0, AICanWinR = 0;
             char playerC = AIC == 'x' ? 'o' : 'x';
-            float depth = 9 - game.getEmptySpaces().size();
+            float depth = 9 - game.emptySpaces.size();
+
             if (AIC == reportForGS.win) winR = 5;
             else if (playerC == reportForGS.win) winR = -5;
             if (AIC == 'x') AICanWinR = reportForGS.xCanWin.size() + (-reportForGS.oCanWin.size());
@@ -44,9 +44,14 @@ private:
             rating = (10 - depth) * 10 / 100 * (winR + AICanWinR);
         }
         //recursion time beby!
-        if (game.getEmptySpaces().size() == 0) return rating;
+        if (game.emptySpaces.size() == 0) return rating;
         else {
-            
+            for (int i = 0; i < game.emptySpaces.size(); i++) {
+                ticTacToeGame temp = game;
+                temp.play(game.emptySpaces[i]);
+                rating += game.ratingGameState(temp, AIC, ratings);
+                if (!ratings.contains(ID)) ratings[ID] = rating;
+            }
         }
     }
 

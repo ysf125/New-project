@@ -21,7 +21,7 @@ int cppVersion() {
 }
 
 // This function returns time in µs
-float averageExecutionTime(S function<void()> code, int precision) {
+float averageExecutionTime(S function<void()> code, float precision) {
     float time = 0;
     for (int i = 0; i < precision; i++) {
         auto start = std::chrono::system_clock::now();

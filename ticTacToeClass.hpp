@@ -1,11 +1,11 @@
 #ifndef ticTacToeClass_hpp
 #define ticTacToeClass_hpp
 
+#include "tools.hpp"
 #include <array>
 #include <ctype.h>
 #include <map>
 #include <vector>
-#include "tools.hpp"
 #define S std::
 
 struct report {
@@ -69,9 +69,7 @@ public:
 
     S array<char, 9> getGameStateC() {
         S array<char, 9> gameStateC;
-        for (int i = 0; i < 9; i++) {
-            gameStateC[i] = (char)gameStateN[i];
-        }
+        for (int i = 0; i < 9; i++) gameStateC[i] = (char)gameStateN[i];
         return gameStateC;
     }
 

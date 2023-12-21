@@ -1,5 +1,4 @@
-#include "ticTacToeClass.hpp"
-#include "tools.hpp"
+#include "ticTacToe.hpp"
 #include <iostream>
 #define S std::
 
@@ -10,7 +9,8 @@ int main() {
     // 3 4 5 / 2 3 2
     // 6 7 8 / 1 2 1
 
-    ticTacToeGame g({ 'x','x' });
+    ticTacToeGame g({ 'x' });
 
+    S cout << "The program finished executing" << "\n";
     return 0;
 }

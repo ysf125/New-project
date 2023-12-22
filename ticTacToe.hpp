@@ -13,9 +13,9 @@ class ticTacToeGame {
 
 private:
     bool AIActivated = false;
+    int emptySpacesSize = 9;
     S map<int, float> ratings;
     S array<int, 9> gameStateN;
-    S vector<int> emptySpaces;
 
     template <typename T>
 

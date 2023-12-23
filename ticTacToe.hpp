@@ -2,7 +2,6 @@
 #define ticTacToe_hpp
 
 #include <array>
-#include <ctype.h>
 #include <map>
 #include <vector>
 #define S std::

@@ -24,12 +24,12 @@ ticTacToeGame::ticTacToeGame(S array<T, 9> gameStateN) {
 float ticTacToeGame::ratingGameState(ticTacToeGame game, char AIC, S map<int, float>& ratings) {
     float rating = 0;
     int ID = createID(game.gameStateN);
+    char playerC = AIC == 'x' ? 'o' : 'x';
+    report reportForGS = game.gameReport();
     // getting the rating
     if (ratings.contains(ID)) rating = ratings[ID];
     else {
-        report reportForGS = game.gameReport();
         int winR = 0, AICanWinR = 0;
-        char playerC = AIC == 'x' ? 'o' : 'x';
         float depth = 9 - game.emptySpacesSize;
 
         if (AIC == reportForGS.win) winR = 5;
@@ -38,8 +38,8 @@ float ticTacToeGame::ratingGameState(ticTacToeGame game, char AIC, S map<int, fl
         else if (AIC == 'o') AICanWinR = reportForGS.oCanWin.size() + (-reportForGS.xCanWin.size());
         rating = (10 - depth) * 10 / 100 * (winR + AICanWinR);
     }
+    if (game.emptySpacesSize == 0 || AIC == reportForGS.win || playerC == reportForGS.win) return rating;
     //recursion time beby!
-    if (game.emptySpacesSize == 0) return rating;
     else {
         for (int i = 0; i < game.emptySpacesSize; i++) {
             ticTacToeGame temp = game;
@@ -114,11 +114,11 @@ report ticTacToeGame::gameReport() {
 }
 
 int ticTacToeGame::AI(char AIC) {
-    int AImove = 0, bestMoveRating = 0;
+    int AIMove = 0, bestMoveRating = 0;
     // first two moves
     if (9 - emptySpacesSize <= 1) {
-        if (!(gameStateN[0] == 120) || !(gameStateN[0] == 111)) AImove = 0;
-        else AImove = 4;
+        if (!(gameStateN[0] == 120) || !(gameStateN[0] == 111)) AIMove = 0;
+        else AIMove = 4;
     }
     else {
         if (AIActivated == false) {
@@ -127,5 +127,5 @@ int ticTacToeGame::AI(char AIC) {
         }
 
     }
-    return AImove;
+    return AIMove;
 }

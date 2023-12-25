@@ -1,9 +1,9 @@
 #include "ticTacToe.hpp"
-#include <array>
-#include <ctype.h>
-#include <map>
 #include <iostream>
+#include <array>
 #include <vector>
+#include <map>
+#include <ctype.h>
 #define S std::
 
 struct report {
@@ -17,7 +17,7 @@ struct report {
 template <typename T>
 
 ticTacToeGame::ticTacToeGame(S array<T, 9> gameStateN) {
-    gameStateN.fill(95);
+    gameStateN.fill(45);
     for (int i = 0; i < 9; i++) play(i, (char)gameStateN[i]);
 }
 
@@ -27,7 +27,7 @@ float ticTacToeGame::ratingGameState(ticTacToeGame game, char AIC, S map<int, fl
     char playerC = AIC == 'x' ? 'o' : 'x';
     report reportForGS = game.gameReport();
     // getting the rating
-    if (ratings.contains(ID)) rating = ratings[ID];
+    if (ratings.contains(ID)) return ratings[ID];
     else {
         int winR = 0, AICanWinR = 0;
         float depth = 9 - game.emptySpacesSize;
@@ -41,30 +41,30 @@ float ticTacToeGame::ratingGameState(ticTacToeGame game, char AIC, S map<int, fl
     if (game.emptySpacesSize == 0 || AIC == reportForGS.win || playerC == reportForGS.win) return rating;
     //recursion time beby!
     else {
+        S vector<int> emptySpaces = game.getEmptySpaces();
         for (int i = 0; i < game.emptySpacesSize; i++) {
             ticTacToeGame temp = game;
-            S vector<int> emptySpaces = game.getEmptySpaces();
             temp.play(emptySpaces[i]);
             rating += game.ratingGameState(temp, AIC, ratings);
-            if (!ratings.contains(ID)) ratings[ID] = rating;
         }
+        if (!ratings.contains(ID)) ratings[ID] = rating;
     }
     return 0;
 }
 
 int ticTacToeGame::createID(S array<int, 9> gameStateN) {
     int key = 0;
-    S array<int, 9> map = { 1, 3, 2, 4, 5, 4, 2, 3, 1 };
+    S array<int, 9> map = { 1, 3, 9, 27, 81, 27, 9, 3, 1 };
     for (int i = 0; i < 9; i++) key += gameStateN[i] + map[i];
     return key;
 }
 
 // public area
 
-ticTacToeGame::ticTacToeGame() { gameStateN.fill(95); }
+ticTacToeGame::ticTacToeGame() { gameStateN.fill(45); }
 
 ticTacToeGame::ticTacToeGame(S array<char, 9> gameStateC) {
-    gameStateN.fill(95);
+    gameStateN.fill(45);
     for (int i = 0; i < 9; i++) play(i, gameStateC[i]);
 }
 
@@ -77,18 +77,18 @@ S array<char, 9> ticTacToeGame::getGameStateC() {
 S vector<int> ticTacToeGame::getEmptySpaces() {
     S vector<int> temp;
     for (int i = 0; i < 9; i++) {
-        if (gameStateN[i] == 95) temp.push_back(i);
+        if (gameStateN[i] == 45) temp.push_back(i);
     }
     return temp;
 }
 
 void ticTacToeGame::play(int SpaceIndex, char player) {
-    if (gameStateN[SpaceIndex] != 95) return;
+    if (gameStateN[SpaceIndex] != 45) return;
     switch (tolower(player)) {
     case 'a': gameStateN[SpaceIndex] = emptySpacesSize % 2 == 1 ? 120 : 111; break;
     case 'x': gameStateN[SpaceIndex] = 120; break;
     case 'o': gameStateN[SpaceIndex] = 111; break;
-    default: gameStateN[SpaceIndex] = 95; emptySpacesSize++; break;
+    default: gameStateN[SpaceIndex] = 45; emptySpacesSize++; break;
     }
     emptySpacesSize--;
 }

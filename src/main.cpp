@@ -5,9 +5,9 @@
 int main() {
 
     // testing for ticTacToeGame class
-    // 0 1 2 / 1 3 2
-    // 3 4 5 / 4 5 4 
-    // 6 7 8 / 2 3 1
+    // 0 1 2 / 1  3  9  / x = 120 
+    // 3 4 5 / 27 81 27 / o = 111
+    // 6 7 8 / 9  3  1  / - = 45
 
     ticTacToeGame g({ 'x' });
 

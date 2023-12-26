@@ -6,7 +6,17 @@
 #include <vector>
 #define S std::
 
-struct report;
+struct movesReport {
+    int center = 0;
+    S vector<int> corners;
+    S vector<int> edges; 
+};
+
+struct report {
+    char win = ' ';
+    S vector<int> xCanWin;
+    S vector<int> oCanWin;
+};
 
 class ticTacToeGame {
 
@@ -36,6 +46,8 @@ public:
     void play(int SpaceIndex, char player = 'a');
 
     report gameReport();
+
+    movesReport playersMovesReport(char player);
 
     int AI(char AIC);
 };

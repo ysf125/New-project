@@ -10,7 +10,7 @@ int main() {
     // 6 7 8 / 9  3  1  / - = 45
 
     ticTacToeGame g({ 'x' });
-
+    
     S cout << "\n" << "The program finished executing";
     return 0;
 }

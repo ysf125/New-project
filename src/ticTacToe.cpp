@@ -6,12 +6,6 @@
 #include <ctype.h>
 #define S std::
 
-struct report {
-    char win = ' ';
-    S vector<int> xCanWin;
-    S vector<int> oCanWin;
-};
-
 // private area
 
 template <typename T>
@@ -113,12 +107,31 @@ report ticTacToeGame::gameReport() {
     return returnVal;
 }
 
+movesReport ticTacToeGame::playersMovesReport(char player) {
+    movesReport returnVal;
+    S array<int, 4> corners = { 0, 2, 6, 8 }; 
+    S array<int, 4> edges = { 1, 3, 5, 7 }; 
+    for (int i = 0 ; i < 9 ; i++) {
+        if ((gameStateN[i] == (int)player) && (i == corners[i])) {
+            returnVal.corners.push_back(i);
+        } else if ((gameStateN[i] == (int)player) && (i == edges[i])) {
+            returnVal.edges.push_back(i);
+        } else if ((gameStateN[i] == (int)player) && (i == 5)) {
+            returnVal.center = 5;
+        }
+    }
+    return returnVal;
+}
+
 int ticTacToeGame::AI(char AIC) {
     int AIMove = 0, bestMoveRating = 0;
     // first two moves
     if (9 - emptySpacesSize <= 1) {
-        if (!(gameStateN[0] == 120) || !(gameStateN[0] == 111)) AIMove = 0;
-        else AIMove = 4;
+        if (false) {
+
+        } else {
+
+        }
     }
     else {
         if (AIActivated == false) {

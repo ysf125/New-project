@@ -11,13 +11,13 @@
 template <typename T>
 
 ticTacToeGame::ticTacToeGame(S array<T, 9> gameStateN) {
-    gameStateN.fill(45);
+    gameStateC.fill('-');
     for (int i = 0; i < 9; i++) play(i, (char)gameStateN[i]);
 }
 
 float ticTacToeGame::ratingGameState(ticTacToeGame game, char AIC, S map<int, float>& ratings) {
     float rating = 0;
-    int ID = createID(game.gameStateN);
+    int ID = createID(game.gameStateC);
     char playerC = AIC == 'x' ? 'o' : 'x';
     report reportForGS = game.gameReport();
     // getting the rating
@@ -46,43 +46,37 @@ float ticTacToeGame::ratingGameState(ticTacToeGame game, char AIC, S map<int, fl
     return 0;
 }
 
-int ticTacToeGame::createID(S array<int, 9> gameStateN) {
+int ticTacToeGame::createID(S array<char, 9> gameStateC) {
     int key = 0;
     S array<int, 9> map = { 1, 3, 9, 27, 81, 27, 9, 3, 1 };
-    for (int i = 0; i < 9; i++) key += gameStateN[i] + map[i];
+    for (int i = 0; i < 9; i++) key += (int)gameStateC[i] + map[i];
     return key;
 }
 
 // public area
 
-ticTacToeGame::ticTacToeGame() { gameStateN.fill(45); }
+ticTacToeGame::ticTacToeGame() { gameStateC.fill('-'); }
 
 ticTacToeGame::ticTacToeGame(S array<char, 9> gameStateC) {
-    gameStateN.fill(45);
+    gameStateC.fill('-');
     for (int i = 0; i < 9; i++) play(i, gameStateC[i]);
 }
 
-S array<char, 9> ticTacToeGame::getGameStateC() {
-    S array<char, 9> gameStateC;
-    for (int i = 0; i < 9; i++) gameStateC[i] = (char)gameStateN[i];
-    return gameStateC;
-}
+S array<char, 9> ticTacToeGame::getGameStateC() { return gameStateC; }
 
 S vector<int> ticTacToeGame::getEmptySpaces() {
     S vector<int> temp;
-    for (int i = 0; i < 9; i++) {
-        if (gameStateN[i] == 45) temp.push_back(i);
-    }
+    for (int i = 0; i < 9; i++) if (gameStateC[i] == '-') temp.push_back(i);
     return temp;
 }
 
 void ticTacToeGame::play(int SpaceIndex, char player) {
-    if (gameStateN[SpaceIndex] != 45) return;
+    if (gameStateC[SpaceIndex] != '-') return;
     switch (tolower(player)) {
-    case 'a': gameStateN[SpaceIndex] = emptySpacesSize % 2 == 1 ? 120 : 111; break;
-    case 'x': gameStateN[SpaceIndex] = 120; break;
-    case 'o': gameStateN[SpaceIndex] = 111; break;
-    default: gameStateN[SpaceIndex] = 45; emptySpacesSize++; break;
+    case 'a': gameStateC[SpaceIndex] = emptySpacesSize % 2 == 1 ? 'x' : 'o'; break;
+    case 'x': gameStateC[SpaceIndex] = 'x'; break;
+    case 'o': gameStateC[SpaceIndex] = 'o'; break;
+    default: gameStateC[SpaceIndex] = '-'; emptySpacesSize++; break;
     }
     emptySpacesSize--;
 }
@@ -94,9 +88,9 @@ report ticTacToeGame::gameReport() {
         int empty, x = 0, o = 0;
         for (int y = 0; y < 3; y++) {
             int point = (patterns[(i * 2) + 1] * y) + (patterns[i * 2]);
-            switch (gameStateN[point]) {
-            case 120: x += 1; break;
-            case 111: o += 1; break;
+            switch (gameStateC[point]) {
+            case 'x': x += 1; break;
+            case 'o': o += 1; break;
             default: empty = point; break;
             }
         }
@@ -109,14 +103,16 @@ report ticTacToeGame::gameReport() {
 
 movesReport ticTacToeGame::playersMovesReport(char player) {
     movesReport returnVal;
-    S array<int, 4> corners = { 0, 2, 6, 8 }; 
-    S array<int, 4> edges = { 1, 3, 5, 7 }; 
-    for (int i = 0 ; i < 9 ; i++) {
-        if ((gameStateN[i] == (int)player) && (i == corners[i])) {
+    S array<int, 4> corners = { 0, 2, 6, 8 };
+    S array<int, 4> edges = { 1, 3, 5, 7 };
+    for (int i = 0; i < 9; i++) {
+        if ((gameStateC[i] == player) && (i == corners[i])) {
             returnVal.corners.push_back(i);
-        } else if ((gameStateN[i] == (int)player) && (i == edges[i])) {
+        }
+        else if ((gameStateC[i] == player) && (i == edges[i])) {
             returnVal.edges.push_back(i);
-        } else if ((gameStateN[i] == (int)player) && (i == 5)) {
+        }
+        else if ((gameStateC[i] == player) && (i == 5)) {
             returnVal.center = 5;
         }
     }
@@ -125,13 +121,10 @@ movesReport ticTacToeGame::playersMovesReport(char player) {
 
 int ticTacToeGame::AI(char AIC) {
     int AIMove = 0, bestMoveRating = 0;
+    char playerC = AIC == 'x' ? 'o' : 'x';
     // first two moves
     if (9 - emptySpacesSize <= 1) {
-        if (false) {
-
-        } else {
-
-        }
+        if (playersMovesReport(playerC).corners.size() != 0) AIMove = 5;
     }
     else {
         if (AIActivated == false) {

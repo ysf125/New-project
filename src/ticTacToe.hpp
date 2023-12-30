@@ -24,7 +24,7 @@ private:
     bool AIActivated = false;
     int emptySpacesSize = 9;
     S map<int, float> ratings;
-    S array<int, 9> gameStateN;
+    S array<char, 9> gameStateC;
 
     template <typename T>
 
@@ -32,7 +32,7 @@ private:
 
     float ratingGameState(ticTacToeGame game, char AIC, S map<int, float>& ratings);
 
-    int createID(S array<int, 9> gameStateN);
+    int createID(S array<char, 9> gameStateC);
 
 public:
     ticTacToeGame();

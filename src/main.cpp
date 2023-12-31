@@ -4,7 +4,7 @@
 
 int main() {
 
-    // testing for ticTacToeGame class
+    // some information for thr ticTacToeGame class
     // 0 1 2 / 1  3  9  / x = 120 
     // 3 4 5 / 27 81 27 / o = 111
     // 6 7 8 / 9  3  1  / - = 45

@@ -6,14 +6,14 @@
 #include <vector>
 #define S std::
 
-struct movesReport {
+struct moves {
     int center = 0;
     S vector<int> corners;
-    S vector<int> edges; 
+    S vector<int> edges;
 };
 
 struct report {
-    char win = ' ';
+    char win = '-';
     S vector<int> xCanWin;
     S vector<int> oCanWin;
 };
@@ -47,7 +47,7 @@ public:
 
     report gameReport();
 
-    movesReport playersMovesReport(char player);
+    moves playersMoves(char player);
 
     int AI(char AIC);
 };

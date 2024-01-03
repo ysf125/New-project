@@ -1,18 +1,24 @@
 #include "ticTacToe.hpp"
 #include <iostream>
+#include <ctype.h>
+#include <algorithm>
 #include <array>
 #include <vector>
 #include <map>
-#include <ctype.h>
 #define S std::
+
+template <typename T, int N>
+
+bool elementExists(S array<T, N> array, T element) {
+    return S find(array.begin(), array.end(), element) != array.end() ? true : false;
+}
 
 // private area
 
 template <typename T>
 
 ticTacToeGame::ticTacToeGame(S array<T, 9> gameStateN) {
-    gameStateC.fill('-');
-    for (int i = 0; i < 9; i++) play(i, (char)gameStateN[i]);
+    for (int i = 0; i < 9; i++) play(i, (char)gameStateC[i]);
 }
 
 float ticTacToeGame::ratingGameState(ticTacToeGame game, char AIC, S map<int, float>& ratings) {
@@ -58,7 +64,6 @@ int ticTacToeGame::createID(S array<char, 9> gameStateC) {
 ticTacToeGame::ticTacToeGame() { gameStateC.fill('-'); }
 
 ticTacToeGame::ticTacToeGame(S array<char, 9> gameStateC) {
-    gameStateC.fill('-');
     for (int i = 0; i < 9; i++) play(i, gameStateC[i]);
 }
 
@@ -71,7 +76,6 @@ S vector<int> ticTacToeGame::getEmptySpaces() {
 }
 
 void ticTacToeGame::play(int SpaceIndex, char player) {
-    if (gameStateC[SpaceIndex] != '-') return;
     switch (tolower(player)) {
     case 'a': gameStateC[SpaceIndex] = emptySpacesSize % 2 == 1 ? 'x' : 'o'; break;
     case 'x': gameStateC[SpaceIndex] = 'x'; break;
@@ -101,15 +105,15 @@ report ticTacToeGame::gameReport() {
     return returnVal;
 }
 
-movesReport ticTacToeGame::playersMovesReport(char player) {
-    movesReport returnVal;
+moves ticTacToeGame::playersMoves(char player) {
+    moves returnVal;
     S array<int, 4> corners = { 0, 2, 6, 8 };
     S array<int, 4> edges = { 1, 3, 5, 7 };
     for (int i = 0; i < 9; i++) {
-        if ((gameStateC[i] == player) && (i == corners[i])) {
+        if ((gameStateC[i] == player) && elementExists<int, 4>(corners, i)) {
             returnVal.corners.push_back(i);
         }
-        else if ((gameStateC[i] == player) && (i == edges[i])) {
+        else if ((gameStateC[i] == player) && elementExists<int, 4>(edges, i)) {
             returnVal.edges.push_back(i);
         }
         else if ((gameStateC[i] == player) && (i == 5)) {
@@ -124,7 +128,7 @@ int ticTacToeGame::AI(char AIC) {
     char playerC = AIC == 'x' ? 'o' : 'x';
     // first two moves
     if (9 - emptySpacesSize <= 1) {
-        if (playersMovesReport(playerC).corners.size() != 0) AIMove = 5;
+        if (playersMoves(playerC).corners.size() != 0) AIMove = 5;
     }
     else {
         if (AIActivated == false) {

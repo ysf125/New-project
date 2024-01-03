@@ -15,5 +15,6 @@ debug :
 	gdb .\main.exe
 
 test :
+	make build-dll
 	g++ -L. -lticTacToe -std=c++20 -O3 .\src\test.cpp -o .\debugingAndTesting\test.exe
 	.\debugingAndTesting\test.exe

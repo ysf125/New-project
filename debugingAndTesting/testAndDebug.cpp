@@ -1,4 +1,4 @@
-#include "ticTacToe.hpp"
+#include "ticTacToeTestAndDebug.hpp"
 #include <iostream>
 #define S std::
 
@@ -27,6 +27,6 @@ int main() {
         S cout << e << "\n";
     }
 
-    S cout << "\n" << "The testing of the class finished";
+    S cout << "\n" << "testing and debuging has finished";
     return 0;
 }

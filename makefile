@@ -11,10 +11,10 @@ build-dll :
 	del "ticTacToe.o"
 
 debug :
-	g++ -L. -lticTacToe -std=c++20 -O0 -g3 .\src\main.cpp -o .\debugingAndTesting\debug.exe
-	gdb .\main.exe
+	g++ -L. -lticTacToe -std=c++20 -O0 -g3 .\debugingAndTesting\testAndDebug.cpp -o .\debugingAndTesting\debug.exe
+	gdb .\debugingAndTesting\debug.exe
 
 test :
 	make build-dll
-	g++ -L. -lticTacToe -std=c++20 -O3 .\src\test.cpp -o .\debugingAndTesting\test.exe
+	g++ -L. -lticTacToe -std=c++20 -O3 .\debugingAndTesting\testAndDebug.cpp -o .\debugingAndTesting\test.exe
 	.\debugingAndTesting\test.exe

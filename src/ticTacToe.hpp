@@ -3,6 +3,9 @@
 
 #include <array>
 #include <map>
+#include <iostream>
+#include <ctype.h>
+#include <algorithm>
 #include <vector>
 #define S std::
 
@@ -23,14 +26,14 @@ class ticTacToeGame {
 private:
     bool AIActivated = false;
     int emptySpacesSize = 9;
-    S map<int, float> ratings;
+    S map<int, int> ratings;
     S array<char, 9> gameStateC;
 
     template <typename T>
 
     ticTacToeGame(S array<T, 9> gameStateN);
 
-    float ratingGameState(ticTacToeGame game, char AIC, S map<int, float>& ratings);
+    int ratingGameState(ticTacToeGame game, char AIC, S map<int, int>& ratings);
 
     int createID(S array<char, 9> gameStateC);
 
@@ -38,6 +41,8 @@ public:
     ticTacToeGame();
 
     ticTacToeGame(S array<char, 9> gameStateC);
+
+    void editGameState(S array<char, 9> gameStateC);
 
     S array<char, 9> getGameStateC();
 
